@@ -350,7 +350,6 @@ extension MonthView: UICollectionViewDataSource, UICollectionViewDataSourcePrefe
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         parameters.monthData.data.months[section].days.count
-        print("testing this branch out")
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
