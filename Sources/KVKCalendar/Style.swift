@@ -15,6 +15,7 @@ public struct Style {
     public var event = EventStyle()
     public var timeline = TimelineStyle()
     public var week = WeekStyle()
+    public var threeDay = ThreeDayStyle()
     public var allDay = AllDayStyle()
     public var headerScroll = HeaderScrollStyle()
     public var month = MonthStyle()
@@ -295,6 +296,35 @@ public struct TimelineStyle {
         }
     }
 }
+
+
+
+// MARK: 3 Day style
+
+public struct ThreeDayStyle {
+    public var colorBackground: UIColor = gainsboro.withAlphaComponent(0.2)
+    public var colorDate: UIColor = .black
+    public var colorNameDay: UIColor = .black
+    public var colorCurrentDate: UIColor = .white
+    public var colorBackgroundCurrentDate: UIColor = .systemRed
+    public var colorBackgroundSelectDate: UIColor = .black
+    public var colorSelectDate: UIColor = .white
+    public var colorWeekendDate: UIColor = .gray
+    public var colorWeekendBackground: UIColor = .clear
+    public var colorWeekdayBackground: UIColor = .clear
+    public var selectCalendarType: CalendarType = .day
+    public var showVerticalDayDivider: Bool = true
+    public var daysInOneWeek: UInt = 3
+    public var viewMode: TimelineStyle.ViewMode = .default
+    
+    var maxDays: Int {
+        guard 2...6 ~= daysInOneWeek else { return 3 }
+        
+        return Int(daysInOneWeek)
+    }
+}
+
+
 
 // MARK: Week style
 
@@ -607,6 +637,23 @@ extension Style {
         newStyle.timeline.timeColor = UIColor.useForStyle(dark: .systemGray, white: newStyle.timeline.timeColor)
         newStyle.timeline.currentLineHourColor = UIColor.useForStyle(dark: .systemRed,
                                                                      white: newStyle.timeline.currentLineHourColor)
+        // three Day
+        newStyle.threeDay.colorBackground = UIColor.useForStyle(dark: .black, white: newStyle.threeDay.colorBackground)
+        newStyle.threeDay.colorDate = UIColor.useForStyle(dark: .white, white: newStyle.threeDay.colorDate)
+        newStyle.threeDay.colorNameDay = UIColor.useForStyle(dark: .systemGray, white: newStyle.threeDay.colorNameDay)
+        newStyle.threeDay.colorCurrentDate = UIColor.useForStyle(dark: .systemGray, white: newStyle.threeDay.colorCurrentDate)
+        newStyle.threeDay.colorBackgroundSelectDate = UIColor.useForStyle(dark: .systemGray,
+                                                                      white: newStyle.threeDay.colorBackgroundSelectDate)
+        newStyle.threeDay.colorBackgroundCurrentDate = UIColor.useForStyle(dark: .systemGray,
+                                                                       white: newStyle.threeDay.colorBackgroundCurrentDate)
+        newStyle.threeDay.colorSelectDate = UIColor.useForStyle(dark: .white, white: newStyle.threeDay.colorSelectDate)
+        newStyle.threeDay.colorWeekendDate = UIColor.useForStyle(dark: .systemGray2, white: newStyle.threeDay.colorWeekendDate)
+        newStyle.threeDay.colorWeekendBackground = UIColor.useForStyle(dark: .clear, white: newStyle.threeDay.colorWeekendBackground)
+        newStyle.threeDay.colorWeekdayBackground = UIColor.useForStyle(dark: .clear, white: newStyle.threeDay.colorWeekdayBackground)
+        
+        
+        
+        
         
         // week
         newStyle.week.colorBackground = UIColor.useForStyle(dark: .black, white: newStyle.week.colorBackground)

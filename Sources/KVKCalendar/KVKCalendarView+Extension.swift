@@ -34,12 +34,15 @@ extension KVKCalendarView {
             switch parameters.type {
             case .day:
                 dayView.reloadData(events)
+                
+//            case .threeday:
+//                threeView.reloadData(events)
             case .week:
                 weekView.reloadData(events)
             case .month:
                 monthView.reloadData(events)
-            //case .list:
-              //  listView.reloadData(events)
+           // case .list:
+             //   listView.reloadData(events)
             default:
                 break
             }
@@ -75,14 +78,13 @@ extension KVKCalendarView {
         switch parameters.type {
         case .day:
             dayView.setDate(date, animated: false)
+//        case .threeday:
+//            dayView.setDate(date, animated: false)
         case .week:
             weekView.setDate(date, animated: false)
         case .month:
             monthView.setDate(date, animated: animated)
-        case .year:
-            yearView.setDate(date, animated: animated)
-        case .list:
-            listView.setDate(date, animated: animated)
+      
         }
     }
     
@@ -121,8 +123,8 @@ extension KVKCalendarView {
         switch parameters.type {
         case .month:
             monthView.showSkeletonVisible(visible)
-        case .list:
-            listView.showSkeletonVisible(visible)
+       // case .list:
+            //listView.showSkeletonVisible(visible)
         default:
             break
         }
@@ -195,18 +197,20 @@ extension KVKCalendarView {
         switch parameters.type {
         case .day:
             addSubview(dayView)
+//        case .threeday:
+//            addSubview(threeView)
         case .week:
             addSubview(weekView)
         case .month:
             addSubview(monthView)
-        case .year:
-            addSubview(yearView)
-            setupConstraintsForView(yearView)
-        case .list:
-            addSubview(listView)
-            setupConstraintsForView(listView)
-            listView.setupConstraints()
-            reloadData()
+       // case .year:
+            //addSubview(yearView)
+            //setupConstraintsForView(yearView)
+       // case .list:
+         //   addSubview(listView)
+           // setupConstraintsForView(listView)
+            //listView.setupConstraints()
+            //reloadData()
         }        
     }
     
@@ -387,8 +391,8 @@ extension KVKCalendarView {
         switch parameters.type {
         case .month:
             monthView.setDate(monthData.date, animated: true)
-        case .year:
-            yearView.setDate(yearData.date, animated: true)
+        //case .year:
+          //  yearView.setDate(yearData.date, animated: true)
         default:
             break
         }

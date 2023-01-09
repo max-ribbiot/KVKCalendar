@@ -37,16 +37,14 @@ public final class KVKCalendarView: UIView {
     
     private(set) var calendarData: CalendarData
     private var weekData: WeekData
+    //private var threeData: ThreeData
     private(set) var monthData: MonthData
     private var dayData: DayData
-    private(set) var yearData: YearData
-    private let listData: ListViewData
     
     private(set) var dayView: DayView
     private(set) var weekView: WeekView
+   // private(set) var threeView: threeDay
     private(set) var monthView: MonthView
-    private(set) var yearView: YearView
-    private(set) var listView: ListView
     
     public init(frame: CGRect, date: Date? = nil, style: Style = Style(), years: Int = 4) {
         let adaptiveStyle = style.adaptiveStyle
@@ -56,6 +54,12 @@ public final class KVKCalendarView: UIView {
         // day view
         self.dayData = DayData(data: calendarData, startDay: adaptiveStyle.startWeekDay)
         self.dayView = DayView(parameters: .init(style: adaptiveStyle, data: dayData), frame: frame)
+        
+        // week view
+       // self.threeData = ThreeData(data: calendarData,
+                              //   startDay: adaptiveStyle.startWeekDay,
+                              //   maxDays: adaptiveStyle.week.maxDays)
+      //  self.threeView = threeDay(parameters: .init(data: threeData, style: adaptiveStyle), frame: frame)
         
         // week view
         self.weekData = WeekData(data: calendarData,
@@ -70,20 +74,17 @@ public final class KVKCalendarView: UIView {
                                                      style: adaptiveStyle))
         self.monthView = MonthView(parameters: .init(monthData: monthData, style: adaptiveStyle), frame: frame)
         
-        // year view
-        self.yearData = YearData(data: monthData.data, date: calendarData.date, style: adaptiveStyle)
-        self.yearView = YearView(data: yearData, frame: frame)
-        
-        // list view
-        self.listData = ListViewData(data: calendarData, style: adaptiveStyle)
-        let params = ListView.Parameters(style: adaptiveStyle, data: listData)
-        self.listView = ListView(parameters: params, frame: frame)
+     
         
         super.init(frame: frame)
         
         dayView.scrollableWeekView.dataSource = self
         dayView.dataSource = self
         dayView.delegate = self
+        
+//        threeView.scrollableWeekView.dataSource = self
+//        threeView.dataSource = self
+//        threeView.delegate = self
         
         weekView.scrollableWeekView.dataSource = self
         weekView.dataSource = self
@@ -94,14 +95,9 @@ public final class KVKCalendarView: UIView {
         monthView.willSelectDate = { [weak self] (date) in
             self?.delegate?.willSelectDate(date, type: .month)
         }
+
         
-        yearView.delegate = self
-        yearView.dataSource = self
-        
-        listView.dataSource = self
-        listView.delegate = self
-        
-        viewCaches = [.day: dayView, .week: weekView, .month: monthView, .year: yearView, .list: listView]
+        viewCaches = [.day: dayView, .week: weekView, .month: monthView]
         
         if let defaultType = adaptiveStyle.defaultType {
             parameters.type = defaultType

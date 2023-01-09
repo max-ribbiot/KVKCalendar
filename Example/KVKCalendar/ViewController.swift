@@ -29,6 +29,12 @@ final class ViewController: UIViewController, KVKCalendarSettings, KVKCalendarDa
         return button
     }()
     
+    private lazy var increaseBtn: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(increaseCellCount))
+        button.tintColor = .blue
+        return button
+    }()
+    
     private lazy var reloadStyle: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(reloadCalendarStyle))
         button.tintColor = .systemRed
@@ -84,6 +90,20 @@ final class ViewController: UIViewController, KVKCalendarSettings, KVKCalendarDa
         frame.origin.y = 0
         calendarView.reloadFrame(frame)
     }
+
+    @objc private func increaseCellCount() {
+        //var count = cellCount
+        calendarView.style.week.daysInOneWeek = 7
+
+        var updatedStyle = calendarView.style
+        updatedStyle.timeSystem = calendarView.style.timeSystem == .twentyFour ? .twelve : .twentyFour
+        calendarView.didUpdateStyle(updatedStyle, type: .week)
+        
+       // calendarView.updateStyle(updatedStyle)
+        calendarView.reloadData()
+        
+    
+    }
     
     @objc private func reloadCalendarStyle() {
         var updatedStyle = calendarView.style
@@ -100,7 +120,7 @@ final class ViewController: UIViewController, KVKCalendarSettings, KVKCalendarDa
     
     private func setupBarButtons() {
         navigationItem.leftBarButtonItems = [calendarTypeBtn, todayButton]
-        navigationItem.rightBarButtonItems = [reloadStyle]
+        navigationItem.rightBarButtonItems = [reloadStyle, increaseBtn]
     }
     
     @available(iOS 14.0, *)
@@ -194,10 +214,10 @@ extension ViewController: CalendarDataSource {
         handleCustomEventView(event: event, style: style, frame: frame)
     }
     
-    func dequeueCell<T>(parameter: CellParameter, type: CalendarType, view: T, indexPath: IndexPath) -> KVKCalendarCellProtocol? where T: UIScrollView {
-        handleCell(parameter: parameter, type: type, view: view, indexPath: indexPath)
-    }
-    
+//    func dequeueCell<T>(parameter: CellParameter, type: CalendarType, view: T, indexPath: IndexPath) -> KVKCalendarCellProtocol? where T: UIScrollView {
+//        handleCell(parameter: parameter, type: type, view: view, indexPath: indexPath)
+//    }
+//
     func willDisplayEventViewer(date: Date, frame: CGRect) -> UIView? {
         eventViewer.frame = frame
         return eventViewer

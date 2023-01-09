@@ -90,7 +90,7 @@ public enum TimeHourSystem: Int {
 }
 
 public enum CalendarType: String, CaseIterable, ItemsMenuProxy {
-    case day, week, month, year, list
+    case day, week, month//threeday, year, list
     
     public var title: String {
         rawValue.capitalized

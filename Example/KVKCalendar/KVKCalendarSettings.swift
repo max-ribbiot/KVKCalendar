@@ -174,16 +174,11 @@ extension KVKCalendarSettings {
                        view: T,
                        indexPath: IndexPath) -> KVKCalendarCellProtocol? where T: UIScrollView {
         switch type {
-        case .year where parameter.date?.kvkMonth == Date().kvkMonth:
-            let cell = (view as? UICollectionView)?.kvkDequeueCell(indexPath: indexPath) { (cell: CustomDayCell) in
-                cell.imageView.image = UIImage(named: "ic_stub")
-            }
-            return cell
         case .day, .week, .month:
             guard parameter.date?.kvkDay == Date().kvkDay && parameter.type != .empty else { return nil }
             
             let cell = (view as? UICollectionView)?.kvkDequeueCell(indexPath: indexPath) { (cell: CustomDayCell) in
-                cell.imageView.image = UIImage(named: "ic_stub")
+               // cell.imageView.image = UIImage(named: "ic_stub")
             }
             return cell
         default:
